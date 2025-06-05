@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Currency Converter V.O.I</title>
+  <style>
+    body {
+      font-family: Book Antiqua, sans-serif;
+      background-color: #fbf7f7;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      padding: 30px 15px;
+      text-align: center;
+    }
+
+    table {
+      width: 50%;
+      margin: 0 auto;
+      border-collapse: separate;
+      border-spacing: 0 5px;
+      border: 2px solid #333;
+    }
+
+    td {
+      padding: 10px;
+    }
+
+    input {
+      width: 40%;
+      padding: 10px;
+      font-size: 14px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      background-color: #14452F;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 12px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+       
+      position: relative; 
+      bottom: 0px;
+      left: 20px;
+      right: 0px;
+    }
+
+    button:hover {
+      background-color: #A8C090;
+      color: black;
+    }
+
+    #answer {
+      margin-top: 15px;
+      font-weight: bold;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <section class="container">
+    <div align="center">
+      <table cellpadding="5">
+        <tr>
+          <td colspan="2" align="center"><h2><u>CURRENCY CONVERTER V.O.I</u></h2></td>
+        </tr>
+        <tr>
+          <td align="left">From currency:</td>
+          <td><input type="text" id="from" placeholder=""></td>
+        </tr>
+        <tr>
+          <td align="left">To currency:</td>
+          <td><input type="text" id="to" placeholder=""></td>
+        </tr>
+        <tr>
+          <td align="left">Amount:</td>
+          <td><input type="number" id="amount" placeholder="Enter amount"></td>
+        </tr>
+        <tr>
+          <td colspan="2" align="center"><button id="convert">CONVERT</button></td>
+        </tr>
+      </table>
+      <div id="answer">Answer:</div>
+    </div>
+  </section>
+
+  <script>
+    function converter() {
+      const currencies = {
+        USD: 1.0,
+        JPY: 113.5,
+        EUR: 0.89,
+        RUB: 74.36,
+        GBP: 0.75,
+        RWF: 9.86,
+        NRA: 1200,
+        SHL: 2900,
+      };
+
+      document.getElementById("convert").addEventListener("click", function () {
+        const from = document.getElementById("from").value.toUpperCase();
+        const to = document.getElementById("to").value.toUpperCase();
+        const amount = parseFloat(document.getElementById("amount").value);
+        const answerField = document.getElementById("answer");
+
+        if (!currencies[from]) {
+          answerField.textContent = "Currency not found: " + from;
+          return;
+        }
+        if (!currencies[to]) {
+          answerField.textContent = "Currency not found: " + to;
+          return;
+        }
+        if (isNaN(amount) || amount <= 0) {
+          answerField.textContent = "Please enter a valid amount.";
+          return;
+        }
+
+        const result = (amount * currencies[to]) / currencies[from];
+        answerField.textContent = `${amount} ${from} = ${result.toFixed(2)} ${to}`;
+      });
+    }
+
+    converter();
+  </script>
+</body>
+</html>
+
